@@ -1,0 +1,154 @@
+{
+  "main": {
+    "id": "23e216a74e90b890",
+    "type": "split",
+    "children": [
+      {
+        "id": "c57d22f01f3de842",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "cc64fa0cea136a08",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "P_OO-Specifications.pdf"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "8bf9b291ad3ab98d",
+    "type": "split",
+    "children": [
+      {
+        "id": "18b9ad9377e814ff",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4acdf19713cae651",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "ad62b69b96dcf0cd",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "83ac57d0f2de9504",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "7dadd0cb1b2e458c",
+    "type": "split",
+    "children": [
+      {
+        "id": "946f2514a24ad9d6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "34678865cc1ebc51",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "P_OO-Specifications.pdf",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "14fdb80c2ef0c67c",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "P_OO-Specifications.pdf",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "6255d4b50a8e3c7e",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "9671f87a22d0b6ab",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "P_OO-Specifications.pdf"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "cc64fa0cea136a08",
+  "lastOpenFiles": [
+    "Documentation.md",
+    "2024-09-02.md",
+    "P_OO-Specifications.pdf",
+    "To-do liste.md"
+  ]
+}
