@@ -1,19 +1,21 @@
 {
   "main": {
-    "id": "23e216a74e90b890",
+    "id": "474fd3f0e694c865",
     "type": "split",
     "children": [
       {
-        "id": "c57d22f01f3de842",
+        "id": "481cd10fcbbc6a2a",
         "type": "tabs",
         "children": [
           {
-            "id": "cc64fa0cea136a08",
+            "id": "17f43ec5475651d2",
             "type": "leaf",
             "state": {
-              "type": "pdf",
+              "type": "markdown",
               "state": {
-                "file": "P_OO-Specifications.pdf"
+                "file": "doc/Documentation.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -23,15 +25,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "8bf9b291ad3ab98d",
+    "id": "688180bd08b33c83",
     "type": "split",
     "children": [
       {
-        "id": "18b9ad9377e814ff",
+        "id": "b23249531307ad62",
         "type": "tabs",
         "children": [
           {
-            "id": "4acdf19713cae651",
+            "id": "b1b5181356ba38d3",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -41,7 +43,7 @@
             }
           },
           {
-            "id": "ad62b69b96dcf0cd",
+            "id": "697e2d181a42f50b",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -56,7 +58,7 @@
             }
           },
           {
-            "id": "83ac57d0f2de9504",
+            "id": "3e425886511a8d48",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -70,20 +72,20 @@
     "width": 300
   },
   "right": {
-    "id": "7dadd0cb1b2e458c",
+    "id": "d3e4dd2f0c581ef3",
     "type": "split",
     "children": [
       {
-        "id": "946f2514a24ad9d6",
+        "id": "737848a17f779a52",
         "type": "tabs",
         "children": [
           {
-            "id": "34678865cc1ebc51",
+            "id": "ade6ac6b6c764c12",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "P_OO-Specifications.pdf",
+                "file": "doc/Documentation.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -95,19 +97,19 @@
             }
           },
           {
-            "id": "14fdb80c2ef0c67c",
+            "id": "7d9010356ac18ad6",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "P_OO-Specifications.pdf",
+                "file": "doc/Documentation.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
             }
           },
           {
-            "id": "6255d4b50a8e3c7e",
+            "id": "b279071dc475cfb9",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -118,12 +120,12 @@
             }
           },
           {
-            "id": "9671f87a22d0b6ab",
+            "id": "21a0318810bc2ee7",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "P_OO-Specifications.pdf"
+                "file": "doc/Documentation.md"
               }
             }
           }
@@ -144,11 +146,14 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "cc64fa0cea136a08",
+  "active": "17f43ec5475651d2",
   "lastOpenFiles": [
-    "Documentation.md",
-    "2024-09-02.md",
-    "P_OO-Specifications.pdf",
-    "To-do liste.md"
+    "script/prerequis.sql",
+    "script/Nouveau document texte.txt",
+    "script/start.bat",
+    "script/start.ps1",
+    "consignes/P_OO-Specifications.pdf",
+    "doc/Documentation.md",
+    "consignes/~$OO-Specifications.docx"
   ]
 }
