@@ -106,13 +106,14 @@ SHOW GRANTS FOR 'toto'@'localhost';
 ## Requêtes SQL demandées
 
 ```
-
+USE db_space_invaders;
+\W;
 ```
 
 ### Requêtes n°1
 La première requête que l’on vous demande de réaliser est de sélectionner les 5 joueurs qui ont le meilleur score c’est-à-dire qui ont le nombre de points le plus élevé. Les joueurs doivent être classés dans l’ordre décroissant
 ```sql
-
+SELECT * FROM t_
 ```
 
 ### Requêtes n°2
