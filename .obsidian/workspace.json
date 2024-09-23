@@ -4,11 +4,27 @@
     "type": "split",
     "children": [
       {
-        "id": "481cd10fcbbc6a2a",
+        "id": "eee6a494ba413414",
         "type": "tabs",
         "children": [
           {
             "id": "17f43ec5475651d2",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "consignes/P_OO-Specifications.pdf"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "481cd10fcbbc6a2a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "806c05fa58940f59",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -146,14 +162,15 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "17f43ec5475651d2",
+  "active": "806c05fa58940f59",
   "lastOpenFiles": [
+    "consignes/P_OO-Specifications.pdf",
+    "doc/Documentation.md",
+    "doc.md",
     "script/prerequis.sql",
     "script/Nouveau document texte.txt",
     "script/start.bat",
     "script/start.ps1",
-    "consignes/P_OO-Specifications.pdf",
-    "doc/Documentation.md",
     "consignes/~$OO-Specifications.docx"
   ]
 }

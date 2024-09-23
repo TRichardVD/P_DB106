@@ -39,36 +39,36 @@ https://www.emmanuelgautier.fr/blog/utilisateurs-et-privileges-sous-mysql
 ### Création des utilisateurs et des rôle, ajout des utilisateur dans les rôles et attribution des privilèges pour chaque rôle.
 ```sql
 -- Role AdminJeu
-CREATE ROLE 'AdminJeu'@'localhost'; -- Création du rôle AdminJeu
-GRANT SELECT, INSERT, UPDATE, DELETE ON db_space_invaders.* TO 'AdminJeu'@'localhost';
+CREATE ROLE 'AdminJeu'; -- Création du rôle AdminJeu
+GRANT SELECT, INSERT, UPDATE, DELETE ON db_space_invaders.* TO 'AdminJeu';
 
 
 -- Role Joueur
-CREATE ROLE 'Joueur'@'localhost'; -- Création du rôle Joueur
-GRANT SELECT ON db_space_invaders.t_arme TO 'Joueur'@'localhost';
-GRANT SELECT, INSERT ON db_space_invaders.t_commande TO 'Joueur'@'localhost';
-GRANT SELECT, INSERT ON db_space_invaders.t_deatil_commande TO 'Joueur'@'localhost';
+CREATE ROLE 'Joueur'; -- Création du rôle Joueur
+GRANT SELECT ON db_space_invaders.t_arme TO 'Joueur';
+GRANT SELECT, INSERT ON db_space_invaders.t_commande TO 'Joueur';
+GRANT SELECT, INSERT ON db_space_invaders.t_deatil_commande TO 'Joueur';
 
 -- Role GestionnaireBoutique
-CREATE ROLE 'GestionnaireBoutique'@'localhost'; -- Création du rôle GestionnaireBoutique
-GRANT SELECT ON db_space_invaders.t_joueur TO 'GestionnaireBoutique'@'localhost';
-GRANT SELECT, UPDATE, DELETE ON db_space_invaders.t_arme TO 'GestionnaireBoutique'@'localhost';
-GRANT SELECT ON db_space_invaders.t_commande TO 'GestionnaireBoutique'@'localhost';
-GRANT SELECT ON db_space_invaders.t_detail_commande TO 'GestionnaireBoutique'@'localhost';
+CREATE ROLE 'GestionnaireBoutique'; -- Création du rôle GestionnaireBoutique
+GRANT SELECT ON db_space_invaders.t_joueur TO 'GestionnaireBoutique';
+GRANT SELECT, UPDATE, DELETE ON db_space_invaders.t_arme TO 'GestionnaireBoutique';
+GRANT SELECT ON db_space_invaders.t_commande TO 'GestionnaireBoutique';
+GRANT SELECT ON db_space_invaders.t_detail_commande TO 'GestionnaireBoutique';
 
 
 -- Pour chaque rôle, ajouté un utilisateur.
 -- AdminJeu
 CREATE USER 'alice'@'localhost' IDENTIFIED BY 'mdp';
-GRANT 'AdminJeu'@'localhost' TO 'alice'@'localhost';
+GRANT 'AdminJeu' TO 'alice'@'localhost';
 
 -- Joueur
 CREATE USER 'bob'@'localhost' IDENTIFIED BY 'mdpSecret';
-GRANT 'Joueur'@'localhost' TO 'bob'@'localhost';
+GRANT 'Joueur' TO 'bob'@'localhost';
 
 -- GestionnaireBoutique
 CREATE USER 'toto'@'localhost' IDENTIFIED BY 'mdpSuperSecret';
-GRANT 'GestionnaireBoutique'@'localhost' TO 'toto'@'localhost';
+GRANT 'GestionnaireBoutique' TO 'toto'@'localhost';
 
 
 -- Mettre à jour les privilèges
@@ -113,61 +113,111 @@ USE db_space_invaders;
 ### Requêtes n°1
 La première requête que l’on vous demande de réaliser est de sélectionner les 5 joueurs qui ont le meilleur score c’est-à-dire qui ont le nombre de points le plus élevé. Les joueurs doivent être classés dans l’ordre décroissant
 ```sql
-SELECT * FROM t_
+SELECT * FROM t_joueur ORDER BY jouNombrePoints DESC LIMIT 5;
 ```
 
 ### Requêtes n°2
 Trouver le prix maximum, minimum et moyen des armes. Les colonnes doivent avoir pour nom « PrixMaximum », « PrixMinimum » et « PrixMoyen)
 ```sql
-
+SELECT MAX(armPrix) AS 'PrixMaximum', MIN(armPrix) AS 'PrixMinimum', AVG(armPrix) AS 'PrixMoyen' FROM t_arme;
 ```
 
 ### Requêtes n°3
 Trouver le nombre total de commandes par joueur et trier du plus grand nombre au plus petit. La 1ère colonne aura pour nom "IdJoueur", la 2ème colonne aura pour nom "NombreCommandes"
 ```sql
-
+SELECT j.idJoueur AS 'IdJoueur' , COUNT(c.idCommande) AS NombreCommandes
+FROM t_joueur AS j
+JOIN t_commande AS c
+ON j.idJoueur = c.fkJoueur
+GROUP BY idJoueur
+ORDER BY NombreCommandes DESC;
 ```
 
 ### Requêtes n°4
 Trouver les joueurs qui ont passé plus de 2 commandes. La 1ère colonne aura pour nom "IdJoueur", la 2ème colonne aura pour nom "NombreCommandes"
 ```sql
-
+SELECT j.idJoueur AS 'IdJoueur' , COUNT(c.idCommande) AS NombreCommandes
+FROM t_joueur AS j
+JOIN t_commande AS c
+ON j.idJoueur = c.fkJoueur
+GROUP BY idJoueur
+HAVING NombreCommandes > 2
 ```
 
 ### Requêtes n°5
 Trouver le pseudo du joueur et le nom de l'arme pour chaque commande.
 ```sql
+SELECT j.jouPseudo, arm.armNom
+FROM t_joueur AS j
+JOIN t_arsenal AS ars
+ON j.idJoueur = ars.fkJoueur
+JOIN t_arme AS arm
+ON arm.idArme = ars.fkArme
+JOIN t_detail_commande AS dc
+ON dc.fkArme = arm.idArme
+JOIN t_commande AS c
+ON c.idCommande = dc.fkCommande AND j.idJoueur = c.fkJoueur;
 
 ```
 
 ### Requêtes n°6
-Trouver le total dépensé par chaque joueur en ordonnant par le montant le plus élevé en premier, et limiter aux 10 premiers joueurs. La 1ère colonne doit avoir pour nom "IdJoueur" et la 2ème colonne "TotalDepense"
+	Trouver le total dépensé par chaque joueur en ordonnant par le montant le plus élevé en premier, et limiter aux 10 premiers joueurs. La 1ère colonne doit avoir pour nom "IdJoueur" et la 2ème colonne "TotalDepense"
 ```sql
+SELECT j.idJoueur AS 'IdJoueur', SUM(arm.armPrix * dc.detQuantiteCommande) AS 'TotalDepense' 
+FROM t_joueur AS j 
+JOIN t_commande AS c 
+ON j.idJoueur = c.fkJoueur 
+JOIN t_detail_commande AS dc 
+ON c.idCommande = dc.fkCommande 
+JOIN t_arme AS arm ON dc.fkArme = arm.idArme 
+GROUP BY j.idJoueur 
+ORDER BY TotalDepense DESC 
+LIMIT 10;
 
 ```
 
 ### Requêtes n°7
 Récupérez tous les joueurs et leurs commandes, même s'ils n'ont pas passé de commande. Dans cet exemple, même si un joueur n'a jamais passé de commande, il sera quand même listé, avec des valeurs `NULL` pour les champs de la table `t_commande`.
 ```sql
+SELECT * 
+FROM t_joueur AS j
+LEFT JOIN t_commande AS c
+ON c.fkJoueur = j.idJoueur;
 
 ```
 
 ### Requêtes n°8
 Récupérer toutes les commandes et afficher le pseudo du joueur s’il existe, sinon afficher `NULL` pour le pseudo.
 ```sql
-
+SELECT c.*, j.jouPseudo 
+FROM t_joueur AS j
+RIGHT JOIN t_commande AS c
+ON c.fkJoueur = j.idJoueur;
 ```
 
 ### Requêtes n°9
 Trouver le nombre total d'armes achetées par chaque joueur (même si ce joueur n'a acheté aucune Arme).
 ```sql
-
+SELECT j.idJoueur, COUNT(dc.fkArme) AS 'NombreTotalArme'
+FROM t_joueur AS j
+LEFT JOIN t_commande AS c
+ON c.fkJoueur = j.idJoueur
+LEFT JOIN t_detail_commande AS dc
+ON dc.fkCommande = c.idCommande
+GROUP BY j.idJoueur;
 ```
 
 ### Requêtes n°10
 Trouver les joueurs qui ont acheté plus de 3 types d'armes différentes
 ```sql
-
+SELECT j.idJoueur, COUNT(DISTINCT dc.fkArme) AS 'NombreTotalArme'
+FROM t_joueur AS j
+LEFT JOIN t_commande AS c
+ON c.fkJoueur = j.idJoueur
+LEFT JOIN t_detail_commande AS dc
+ON dc.fkCommande = c.idCommande
+GROUP BY j.idJoueur
+HAVING NombreTotalArme > 3;
 ```
 
 
