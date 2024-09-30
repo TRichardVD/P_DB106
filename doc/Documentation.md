@@ -97,12 +97,6 @@ SHOW GRANTS FOR 'toto'@'localhost';
 
 
 
-
-
-
-
-
-
 ## Requêtes SQL demandées
 
 ```
@@ -116,11 +110,20 @@ La première requête que l’on vous demande de réaliser est de sélectionner 
 SELECT * FROM t_joueur ORDER BY jouNombrePoints DESC LIMIT 5;
 ```
 
+**Explications :**
+La requête `SELECT` permet d'afficher des données présent dans la base de données. Elle possède différents paramètres permettant d'indiquer quelles données souhaitant nous récupérer en les filtrant, triant et plus encore.
+
+Ici, on utilise la requête `SELECT` pour afficher toutes les colonnes des données de la table `t_joueur` en le triant par ordre inverse de l'ordre alphabétique et de limiter le nombre de donnée par 5. Cela affichera donc les 5 premier joueurs qui ont le nombre de points les plus élevés. La requête SELECT affiche toujours ce que l'on cherche sous forme de tableau.
+
+
 ### Requêtes n°2
 Trouver le prix maximum, minimum et moyen des armes. Les colonnes doivent avoir pour nom « PrixMaximum », « PrixMinimum » et « PrixMoyen)
 ```sql
 SELECT MAX(armPrix) AS 'PrixMaximum', MIN(armPrix) AS 'PrixMinimum', AVG(armPrix) AS 'PrixMoyen' FROM t_arme;
 ```
+
+**Explications :**
+Ici, on utilise une fonction d'agréation se nommant MAX(). Elle affiche les valeurs maximum pour un ensemble de valeurs donnés. On utilise aussi la fonction MIN() qui récupère la valeur minimum et AVG() qui récupère la valeur moyenne de l'ensemble de valeurs donnée. Dans l'entré de ces fonctions d'agréation on met pour chacune la liste des Prix de toutes les armes. On obtient donc le prix le plus élevé, le prix le moins élevé et le prix moyen de toutes les armes. On renomme les résultat obtenu grâce au fonction d'agréation à l'aide du paramètre `AS` suivi du nouveau nom. Sinon la résultat s'affiche sous forme de tableau avec comme nom de colonne  le nom de la fonction d'agrégation. On souhaite donc changer ces noms, en des noms plus compréhensible.
 
 ### Requêtes n°3
 Trouver le nombre total de commandes par joueur et trier du plus grand nombre au plus petit. La 1ère colonne aura pour nom "IdJoueur", la 2ème colonne aura pour nom "NombreCommandes"
@@ -133,6 +136,11 @@ GROUP BY idJoueur
 ORDER BY NombreCommandes DESC;
 ```
 
+**Explications :**
+On sélectionner tous les identifiants des joueurs et le nombre de commande qu'ils ont passé en comptant chaque commande avec la fonction COUNT(). Ces colonnes sont renommés grâce à `AS` et on joint les données de la table t_joueur et la table t_commande. Ce qui sans autre paramètre que la jointure, créer un tableau avec les données de la table t_joueur et suivi des données de la table t_commande. Les données de ces 2 tables sont liés grâce à l'attribut idJoueur de la table t_joueur et la clé étrangère de l'identifiant de t_joueur dans la table t_commande.
+Voici une image représentant ceci :
+![[sqlJoins_3.png]]
+*Source : [SQL Join types explained visually](https://www.atlassian.com/data/sql/sql-join-types-explained-visually)*
 ### Requêtes n°4
 Trouver les joueurs qui ont passé plus de 2 commandes. La 1ère colonne aura pour nom "IdJoueur", la 2ème colonne aura pour nom "NombreCommandes"
 ```sql
@@ -143,6 +151,8 @@ ON j.idJoueur = c.fkJoueur
 GROUP BY idJoueur
 HAVING NombreCommandes > 2
 ```
+
+**Explications :**
 
 ### Requêtes n°5
 Trouver le pseudo du joueur et le nom de l'arme pour chaque commande.
@@ -160,6 +170,9 @@ ON c.idCommande = dc.fkCommande AND j.idJoueur = c.fkJoueur;
 
 ```
 
+**Explications :**
+
+
 ### Requêtes n°6
 	Trouver le total dépensé par chaque joueur en ordonnant par le montant le plus élevé en premier, et limiter aux 10 premiers joueurs. La 1ère colonne doit avoir pour nom "IdJoueur" et la 2ème colonne "TotalDepense"
 ```sql
@@ -175,6 +188,8 @@ ORDER BY TotalDepense DESC
 LIMIT 10;
 
 ```
+
+**Explications :**
 
 ### Requêtes n°7
 Récupérez tous les joueurs et leurs commandes, même s'ils n'ont pas passé de commande. Dans cet exemple, même si un joueur n'a jamais passé de commande, il sera quand même listé, avec des valeurs `NULL` pour les champs de la table `t_commande`.
