@@ -269,3 +269,24 @@ En plus des clés primaires et des clés étrangères, je propose d'ajouter des 
 Nous souhaitons réaliser une sauvegarde (Backup) de la base de données db_space_invaders. Ensuite, nous souhaitons nous assurer que cette sauvegarde est correcte en la rechargeant dans MySQL (opération de restauration). Donner la commande permettant de faire :
 - Un backup de la base de données db_space_invaders 
 - Un restore de la base de données db_space_invaders En expliquant en détail chaque commande utilisée.
+
+Pour créer un dump d'une base de données, on peut utilisé l'utilitaire présent dans mysql se nommant `mysqldump`. La commande suivante sert donc à créer un dump d'une base de données précisé (il est aussi possible de faire un dump de toutes les base de données mais nous ne feront pas ca ici)
+```bash
+mysqldump -uroot -proot nom_db > nom_fichier.sql --single-transaction --databases
+```
+
+Donc si on applique ceci dans note base de données :
+```bash
+mysqldump -uroot -proot db_space_invaders > db_space_invaders.sql --single-transaction --databases
+```
+
+Un dump c'est créé dans l'emplacement approprié. On peut le copier dans l'emplacement de notre choix avec la commande suivante en dehors de notre container.
+```bash
+docker cp emplacement_du_fichier_source emplacement_du_fichier_destination
+```
+
+Donc on applique la commande suivante dans notre environnement
+```bash
+docker cp db:db_space_invaders.sql db_space_invaders.sql 
+```
+
