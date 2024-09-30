@@ -40,7 +40,7 @@ https://www.emmanuelgautier.fr/blog/utilisateurs-et-privileges-sous-mysql
 ```sql
 -- Role AdminJeu
 CREATE ROLE 'AdminJeu'; -- Création du rôle AdminJeu
-GRANT SELECT, INSERT, UPDATE, DELETE ON db_space_invaders.* TO 'AdminJeu';
+GRANT SELECT, INSERT, UPDATE, DELETE ON db_space_invaders.* TO 'AdminJeu'; -- Donner les privilèges nécessaires au rôle AdminJeu
 
 
 -- Role Joueur
@@ -186,6 +186,8 @@ ON c.fkJoueur = j.idJoueur;
 
 ```
 
+**Explications :**
+
 ### Requêtes n°8
 Récupérer toutes les commandes et afficher le pseudo du joueur s’il existe, sinon afficher `NULL` pour le pseudo.
 ```sql
@@ -195,6 +197,7 @@ RIGHT JOIN t_commande AS c
 ON c.fkJoueur = j.idJoueur;
 ```
 
+**Explications :**
 ### Requêtes n°9
 Trouver le nombre total d'armes achetées par chaque joueur (même si ce joueur n'a acheté aucune Arme).
 ```sql
@@ -220,15 +223,47 @@ GROUP BY j.idJoueur
 HAVING NombreTotalArme > 3;
 ```
 
+**Explications :**
 
 ## Création des index
 En étudiant le dump MySQL db_space_invaders.sql vous constaterez que vous ne trouvez pas le mot clé INDEX. 
 ### 1. Pourtant certains index existent déjà. Pourquoi ? 
 
-### 2. Quels sont les avantages et les inconvénients des index ? 
+```sql
+/* 
+SHOW INDEX FROM nom_table ; --permet d'afficher les index existant sur une table précise 
+*/
 
+SHOW INDEX FROM t_arme;
+SHOW INDEX FROM t_arsenal;
+SHOW INDEX FROM t_commande;
+SHOW INDEX FROM t_detail_commande;
+SHOW INDEX FROM t_joueur;
+```
+En utilisant les commandes ci-dessus, on peut afficher dans la console tous les index existant pour les tables de notre base de données.
+On remarque qu'il existe déjà quelque index existant. Ils ont tous un point commun : Ils sont soit des clés primaire soit des clés étrangères. On peut donc supposé que en mysql des index sont créés par défaut pour chaque clés primaires et pour chaque clés étrangères.
+
+[Ce cours de guru99 nous confirme l'hypothèse que nous avons posé.](https://www.guru99.com/fr/indexes.html)
+
+**Conclusion :**
+Par défaut, mysql, créer des index par défaut pour les clés primaires et clés secondaires.
+
+### 2. Quels sont les avantages et les inconvénients des index ? 
+#### Avantages
+- Accélère considérablement les recherches dans les données d'une base de données (`SELECT`)
+- 
+
+#### Inconvénients
+- Peut ralentir lors de l'ajour de données (`INSERT INTO`, etc.)
+
+
+*Sources : [What are advantages and disadvantages of indexes in MySQL? - Linkedin](https://www.linkedin.com/pulse/what-advantages-disadvantages-indexes-mysql-esam-eisa)*
 ### 3. Sur quel champ (de quelle table), cela pourrait être pertinent d’ajouter un index ? Justifier votre réponse.
 
+En plus des clés primaires et des clés étrangères, je propose d'ajouter des index sur les colonnes suivantes :
+
+- **jouPseudo (dans t_joueur)** : Généralement, on identifie un joueur par son pseudo et on le recherche grâce à celui-ci. C'est probablement l'une des recherches les plus fréquentes, d'où l'intérêt d'en améliorer la vitesse. Bien que de nouveaux joueurs puissent s'inscrire régulièrement, je suppose que les recherches de joueurs sont plus fréquentes que les créations de comptes. Cela améliore considérablement l'expérience utilisateur, surtout dans le cas d'une base de données contenant des millions de joueurs. Sans index, la recherche pourrait prendre un certain temps, tandis que la création d'un nouveau compte peut être légèrement plus lente sans impact significatif sur l'expérience de jeu immédiate.
+- **armNom (dans t_arme)** : Si l'on doit effectuer des recherches dans la base de données par le nom d'une arme, il serait utile d'y ajouter un index. En général, l'ajout de nouvelles armes est moins fréquent que les recherches, ce qui justifie l'utilisation d'un index pour optimiser les recherches.
 
 ## Backup / Restore
 Nous souhaitons réaliser une sauvegarde (Backup) de la base de données db_space_invaders. Ensuite, nous souhaitons nous assurer que cette sauvegarde est correcte en la rechargeant dans MySQL (opération de restauration). Donner la commande permettant de faire :

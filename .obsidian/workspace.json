@@ -20,11 +20,11 @@
         ]
       },
       {
-        "id": "481cd10fcbbc6a2a",
+        "id": "dc980dd8c299c73f",
         "type": "tabs",
         "children": [
           {
-            "id": "806c05fa58940f59",
+            "id": "dfeb69b23577c757",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -162,10 +162,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "806c05fa58940f59",
+  "active": "dfeb69b23577c757",
   "lastOpenFiles": [
     "consignes/P_OO-Specifications.pdf",
     "doc/Documentation.md",
+    "doc/I-ConventionsDeCodageV3.6.0.pdf",
+    "script/I-ConventionsDeCodageV3.6.0.pdf",
     "doc.md",
     "script/prerequis.sql",
     "script/Nouveau document texte.txt",

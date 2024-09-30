@@ -7,3 +7,7 @@ docker exec -i db mysql -uroot -proot db_space_invaders < users.sql
 
 ECHO OFF
 PAUSE
+
+CLS
+
+docker exec -it db bash
