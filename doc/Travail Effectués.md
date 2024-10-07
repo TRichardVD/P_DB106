@@ -1,7 +1,7 @@
-
+Cette page explique tout le travail qui a été effectué et comment. Vous trouverez le fichier contenant toutes les commandes SQL 
 ## Importation de la base de données
 
-Lancer cette commande depuis le dossier dans lequel se trouve le fichier `db_space_invaders.sql`.
+Lancer cette commande depuis le dossier dans lequel se trouve le fichier `db_space_invaders.sql` . Cette commande permet d'importer un dump/ executer les commandes sql présente dans un fichier dans l'environnement mysql.
 
 ```shell
 docker exec -i db mysql -uroot -proot db_space_invaders < db_space_invaders.sql
@@ -17,7 +17,19 @@ docker exec -i db mysql -uroot -proot db_space_invaders < db_space_invaders.sql
 	`db_space_invaders`: C'est le nom de la base de données MySQL à laquelle on va se connecter et sur laquelle le fichier SQL sera exécuté.
 	`< db_space_invaders.sql` :  Cette partie utilise la redirection d'entrée du shell pour envoyer le contenu du fichier `db_space_invaders.sql` en tant qu'entrée à la commande MySQL. Cela signifie que toutes les instructions SQL contenues dans `db_space_invaders.sql` seront exécutées sur la base de données `db_space_invaders`.
 
-## Création des utilisateurs
+## Accéder au terminal de l'environnement du container docker
+Nous utilisons ici, un environnement docker qui exécute un serveur SQL. Mais pour nous connecter dans un terminal à cette environnement nous devons lancé depuis un terminal Windows la commande suivante :
+```bash
+docker exec -it db bash
+```
+
+Cette commande est utilisée pour exécuter une commande interactive dans un conteneur Docker en cours d'exécution.
+
+Explication détaillée de la commande :
+`docker exec` : Cette partie indique à Docker d'exécuter une commande dans un conteneur existant.
+`-it` : permet d'obtenir un shell interactif dans le conteneur.
+`db` : C'est le nom ou l'ID du conteneur dans lequel la commande sera exécutée.
+`bash` : C'est la commande à exécuter dans le conteneur, ici un shell Bash.
 
 
 ### Comment faire ?
@@ -61,14 +73,17 @@ GRANT SELECT ON db_space_invaders.t_detail_commande TO 'GestionnaireBoutique';
 -- AdminJeu
 CREATE USER 'alice'@'localhost' IDENTIFIED BY 'mdp';
 GRANT 'AdminJeu' TO 'alice'@'localhost';
+SET DEFAULT ROLE 'AdminJeu' TO 'alice'@'localhost';
 
 -- Joueur
 CREATE USER 'bob'@'localhost' IDENTIFIED BY 'mdpSecret';
 GRANT 'Joueur' TO 'bob'@'localhost';
+SET DEFAULT ROLE 'Joueur' TO 'bob'@'localhost';
 
 -- GestionnaireBoutique
 CREATE USER 'toto'@'localhost' IDENTIFIED BY 'mdpSuperSecret';
 GRANT 'GestionnaireBoutique' TO 'toto'@'localhost';
+SET DEFAULT ROLE 'GestionnaireBoutique' TO 'toto'@'localhost';
 
 
 -- Mettre à jour les privilèges
@@ -123,10 +138,10 @@ SELECT MAX(armPrix) AS 'PrixMaximum', MIN(armPrix) AS 'PrixMinimum', AVG(armPrix
 ```
 
 **Explications :**
-Ici, on utilise une fonction d'agréation se nommant MAX(). Elle affiche les valeurs maximum pour un ensemble de valeurs donnés. On utilise aussi la fonction MIN() qui récupère la valeur minimum et AVG() qui récupère la valeur moyenne de l'ensemble de valeurs donnée. Dans l'entré de ces fonctions d'agréation on met pour chacune la liste des Prix de toutes les armes. On obtient donc le prix le plus élevé, le prix le moins élevé et le prix moyen de toutes les armes. On renomme les résultat obtenu grâce au fonction d'agréation à l'aide du paramètre `AS` suivi du nouveau nom. Sinon la résultat s'affiche sous forme de tableau avec comme nom de colonne  le nom de la fonction d'agrégation. On souhaite donc changer ces noms, en des noms plus compréhensible.
+Ici, on utilise une fonction d'agrégation se nommant `MAX()`. Elle affiche les valeurs maximum pour un ensemble de valeurs donnés. On utilise aussi la fonction `MIN()` qui récupère la valeur minimum et `AVG()` qui récupère la valeur moyenne de l'ensemble de valeurs donné. Dans l'entrée de ces fonctions d'agrégation, on met pour chacune la liste des prix de toutes les armes. On obtient donc le prix le plus élevé, le prix le moins élevé et le prix moyen de toutes les armes. On renomme les résultats obtenus grâce aux fonctions d'agrégation à l'aide du paramètre `AS` suivi du nouveau nom. Sinon, les résultats s'affichent sous forme de tableau avec comme nom de colonne le nom de la fonction d'agrégation. On souhaite donc changer ces noms en des noms plus compréhensibles.
 
 ### Requêtes n°3
-Trouver le nombre total de commandes par joueur et trier du plus grand nombre au plus petit. La 1ère colonne aura pour nom "IdJoueur", la 2ème colonne aura pour nom "NombreCommandes"
+Trouver le nombre total de commandes par joueur et trier du plus grand nombre au plus petit. La 1ère colonne aura pour nom "`IdJoueur`", la 2ème colonne aura pour nom "`NombreCommandes`"
 ```sql
 SELECT j.idJoueur AS 'IdJoueur' , COUNT(c.idCommande) AS NombreCommandes
 FROM t_joueur AS j
@@ -137,12 +152,15 @@ ORDER BY NombreCommandes DESC;
 ```
 
 **Explications :**
-On sélectionner tous les identifiants des joueurs et le nombre de commande qu'ils ont passé en comptant chaque commande avec la fonction COUNT(). Ces colonnes sont renommés grâce à `AS` et on joint les données de la table t_joueur et la table t_commande. Ce qui sans autre paramètre que la jointure, créer un tableau avec les données de la table t_joueur et suivi des données de la table t_commande. Les données de ces 2 tables sont liés grâce à l'attribut idJoueur de la table t_joueur et la clé étrangère de l'identifiant de t_joueur dans la table t_commande.
+On sélectionne tous les identifiants des joueurs et le nombre de commande qu'ils ont passé en comptant chaque commande avec la fonction `COUNT()`. Ces colonnes sont renommés grâce à `AS` et on joint les données de la table `t_joueur` et la table `t_commande`. Ce qui sans autre paramètre que la jointure, créer un tableau avec les données de la table `t_joueur` et suivi des données de la table `t_commande`. Les données de ces 2 tables sont liés grâce à l'attribut `idJoueur` de la table `t_joueur` et la clé étrangère de l'identifiant de `t_joueur` dans la table `t_commande`.
 Voici une image représentant ceci :
 ![[sqlJoins_3.png]]
+
 *Source : [SQL Join types explained visually](https://www.atlassian.com/data/sql/sql-join-types-explained-visually)*
+
+Ensuite en groupe par l'attribut `idJoueur` puis ordonner dans l'ordre décroissant par l'attribut `NombresCommandes`.
 ### Requêtes n°4
-Trouver les joueurs qui ont passé plus de 2 commandes. La 1ère colonne aura pour nom "IdJoueur", la 2ème colonne aura pour nom "NombreCommandes"
+Trouver les joueurs qui ont passé plus de 2 commandes. La 1ère colonne aura pour nom `IdJoueur`, la 2ème colonne aura pour nom `NombreCommandes`
 ```sql
 SELECT j.idJoueur AS 'IdJoueur' , COUNT(c.idCommande) AS NombreCommandes
 FROM t_joueur AS j
@@ -171,10 +189,10 @@ ON c.idCommande = dc.fkCommande AND j.idJoueur = c.fkJoueur;
 ```
 
 **Explications :**
-
+Sélectionner les colonnes `jouPseudo` et `armNom` des tables `t_joueur`qui est join avec `t_arsenal`, `t_arme`, `t_detail_commande` et `t_commande`
 
 ### Requêtes n°6
-	Trouver le total dépensé par chaque joueur en ordonnant par le montant le plus élevé en premier, et limiter aux 10 premiers joueurs. La 1ère colonne doit avoir pour nom "IdJoueur" et la 2ème colonne "TotalDepense"
+Trouver le total dépensé par chaque joueur en ordonnant par le montant le plus élevé en premier, et limiter aux 10 premiers joueurs. La 1ère colonne doit avoir pour nom "`IdJoueur`" et la 2ème colonne "`TotalDepense`"
 ```sql
 SELECT j.idJoueur AS 'IdJoueur', SUM(arm.armPrix * dc.detQuantiteCommande) AS 'TotalDepense' 
 FROM t_joueur AS j 
@@ -190,7 +208,7 @@ LIMIT 10;
 ```
 
 **Explications :**
-
+Cette commande SQL effectue une analyse complexe des dépenses des joueurs en armes dans un système de jeu. Elle commence par joindre plusieurs tables (`t_joueur`, `t_commande`, `t_detail_commande` et `t_arme`) en utilisant leurs clés étrangères respectives. Ensuite, elle calcule le total des dépenses pour chaque joueur en multipliant le prix de chaque arme (`arm.armPrix`) par la quantité commandée (`dc.detQuantiteCommande`) et en faisant la somme de ces produits. Les résultats sont groupés par joueur (`GROUP BY j.idJoueur`) et triés par ordre décroissant du total des dépenses (`ORDER BY TotalDepense DESC`). Puis, la commande limite les résultats aux 10 premiers joueurs (`LIMIT 10`), affichant ainsi les 10 joueurs ayant dépensé le plus en armes, avec leur identifiant (`IdJoueur`) et le montant total de leurs dépenses (`TotalDepense`).
 ### Requêtes n°7
 Récupérez tous les joueurs et leurs commandes, même s'ils n'ont pas passé de commande. Dans cet exemple, même si un joueur n'a jamais passé de commande, il sera quand même listé, avec des valeurs `NULL` pour les champs de la table `t_commande`.
 ```sql
@@ -202,7 +220,7 @@ ON c.fkJoueur = j.idJoueur;
 ```
 
 **Explications :**
-
+Cette commande SQL effectue une jointure externe gauche (`LEFT JOIN`) entre les tables `t_joueur` (aliasée en 'j') et `t_commande` (aliasée en 'c'). Elle récupère toutes les colonnes (`*`) des deux tables pour chaque joueur, qu'il ait passé une commande ou non. La jointure se fait sur la base de la correspondance entre l'identifiant du joueur (`j.idJoueur`) et la clé étrangère du joueur dans la table des commandes (`c.fkJoueur`). Cette requête permet d'obtenir une vue complète de tous les joueurs, incluant leurs informations de commande s'ils en ont, et affichant des valeurs NULL pour les colonnes de commande pour les joueurs n'ayant pas encore passé de commande. 
 ### Requêtes n°8
 Récupérer toutes les commandes et afficher le pseudo du joueur s’il existe, sinon afficher `NULL` pour le pseudo.
 ```sql
@@ -213,6 +231,7 @@ ON c.fkJoueur = j.idJoueur;
 ```
 
 **Explications :**
+Cette commande SQL effectue une jointure externe droite (`RIGHT JOIN`) entre les tables `t_commande` (aliasée en 'c') et `t_joueur` (aliasée en 'j'). Elle sélectionne toutes les colonnes de la table `t_commande` (`c.\*`) ainsi que la colonne `jouPseudo` de la table `t_joueur`. La jointure se fait sur la correspondance entre la clé étrangère du joueur dans la table des commandes (`c.fkJoueur`) et l'identifiant du joueur (`j.idJoueur`). Cette requête permet d'obtenir toutes les commandes, qu'elles soient associées à un joueur existant ou non, en incluant le pseudonyme du joueur lorsqu'il est disponible. Si une commande n'est pas associée à un joueur existant, la colonne `jouPseudo` affichera NULL.
 ### Requêtes n°9
 Trouver le nombre total d'armes achetées par chaque joueur (même si ce joueur n'a acheté aucune Arme).
 ```sql
@@ -224,7 +243,8 @@ LEFT JOIN t_detail_commande AS dc
 ON dc.fkCommande = c.idCommande
 GROUP BY j.idJoueur;
 ```
-
+**Explications :**
+ Cette requête SQL effectue une analyse du nombre total d'armes commandées par chaque joueur. Elle commence par une jointure externe gauche (LEFT JOIN) entre la table `t_joueur` (j) et `t_commande` (c), puis une seconde jointure externe gauche avec `t_detail_commande` (dc). La fonction COUNT(`dc.fkArme`) est utilisée pour compter le nombre d'armes dans chaque commande. Le résultat est groupé par l'identifiant du joueur (`GROUP BY j.idJoueur`), ce qui permet d'obtenir le nombre total d'armes pour chaque joueur, même ceux n'ayant pas passé de commande (qui auront un total de 0). Cette requête fournit donc un tableau indiquant le nombre d'armes obtenu par chaque joueur, incluant les joueurs qui n'en jamais fait d'achats.
 ### Requêtes n°10
 Trouver les joueurs qui ont acheté plus de 3 types d'armes différentes
 ```sql
@@ -239,9 +259,9 @@ HAVING NombreTotalArme > 3;
 ```
 
 **Explications :**
-
+Cette requête SQL analyse la diversité des armes commandées par chaque joueur. Elle utilise des jointures externes gauches (LEFT JOIN) pour lier les tables `t_joueur` (j), `t_commande` (c), et `t_detail_commande` (dc). La fonction COUNT(`DISTINCT dc.fkArme`) compte le nombre d'armes uniques commandées par chaque joueur, évitant ainsi les doublons. Les résultats sont groupés par joueur (`GROUP BY j.idJoueur`). La clause `HAVING NombreTotalArme > 3` filtre les résultats pour ne montrer que les joueurs ayant commandé plus de 3 types d'armes différents. Cette requête est particulièrement utile pour identifier les joueurs avec une collection d'armes variée, ce qui pourrait indiquer un engagement plus important dans le jeu ou une stratégie d'achat diversifiée. Elle permet d'analyser les comportements d'achat sophistiqués et potentiellement de cibler les joueurs les plus actifs ou expérimentés.
 ## Création des index
-En étudiant le dump MySQL db_space_invaders.sql vous constaterez que vous ne trouvez pas le mot clé INDEX. 
+En étudiant le dump MySQL `db_space_invaders.sql` vous constaterez que vous ne trouvez pas le mot clé INDEX. 
 ### 1. Pourtant certains index existent déjà. Pourquoi ? 
 
 ```sql
