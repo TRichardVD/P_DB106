@@ -119,147 +119,143 @@ USE db_space_invaders;
 \W;
 ```
 
-### Requêtes n°1
-La première requête que l’on vous demande de réaliser est de sélectionner les 5 joueurs qui ont le meilleur score c’est-à-dire qui ont le nombre de points le plus élevé. Les joueurs doivent être classés dans l’ordre décroissant
+### Requête n°1
+La première requête vise à sélectionner les 5 joueurs ayant le meilleur score, c'est-à-dire le nombre de points le plus élevé. Les joueurs doivent être classés dans l'ordre décroissant.
+
 ```sql
 SELECT * FROM t_joueur ORDER BY jouNombrePoints DESC LIMIT 5;
 ```
 
 **Explications :**
-La requête `SELECT` permet d'afficher des données présent dans la base de données. Elle possède différents paramètres permettant d'indiquer quelles données souhaitant nous récupérer en les filtrant, triant et plus encore.
+Cette requête SQL sélectionne toutes les colonnes (`*`) de la table `t_joueur`. Les résultats sont triés par ordre décroissant (`DESC`) du nombre de points (`jouNombrePoints`), assurant ainsi que les joueurs avec le plus de points apparaissent en premier. La clause `LIMIT 5` restreint le résultat aux 5 premiers joueurs, correspondant ainsi aux 5 meilleurs scores. Cette requête est efficace pour identifier rapidement les joueurs les plus performants du jeu.
 
-Ici, on utilise la requête `SELECT` pour afficher toutes les colonnes des données de la table `t_joueur` en le triant par ordre inverse de l'ordre alphabétique et de limiter le nombre de donnée par 5. Cela affichera donc les 5 premier joueurs qui ont le nombre de points les plus élevés. La requête SELECT affiche toujours ce que l'on cherche sous forme de tableau.
+### Requête n°2
+Trouver le prix maximum, minimum et moyen des armes. Les colonnes doivent avoir pour nom "PrixMaximum", "PrixMinimum" et "PrixMoyen".
 
-
-### Requêtes n°2
-Trouver le prix maximum, minimum et moyen des armes. Les colonnes doivent avoir pour nom « PrixMaximum », « PrixMinimum » et « PrixMoyen)
 ```sql
 SELECT MAX(armPrix) AS 'PrixMaximum', MIN(armPrix) AS 'PrixMinimum', AVG(armPrix) AS 'PrixMoyen' FROM t_arme;
 ```
 
 **Explications :**
-Ici, on utilise une fonction d'agrégation se nommant `MAX()`. Elle affiche les valeurs maximum pour un ensemble de valeurs donnés. On utilise aussi la fonction `MIN()` qui récupère la valeur minimum et `AVG()` qui récupère la valeur moyenne de l'ensemble de valeurs donné. Dans l'entrée de ces fonctions d'agrégation, on met pour chacune la liste des prix de toutes les armes. On obtient donc le prix le plus élevé, le prix le moins élevé et le prix moyen de toutes les armes. On renomme les résultats obtenus grâce aux fonctions d'agrégation à l'aide du paramètre `AS` suivi du nouveau nom. Sinon, les résultats s'affichent sous forme de tableau avec comme nom de colonne le nom de la fonction d'agrégation. On souhaite donc changer ces noms en des noms plus compréhensibles.
+Cette requête utilise trois fonctions d'agrégation sur la colonne `armPrix` de la table `t_arme` :
+- `MAX()` pour trouver le prix le plus élevé
+- `MIN()` pour trouver le prix le plus bas
+- `AVG()` pour calculer le prix moyen
 
-### Requêtes n°3
-Trouver le nombre total de commandes par joueur et trier du plus grand nombre au plus petit. La 1ère colonne aura pour nom "`IdJoueur`", la 2ème colonne aura pour nom "`NombreCommandes`"
+Chaque résultat est renommé avec la clause `AS` pour correspondre aux noms de colonnes demandés. Cette requête fournit un aperçu rapide de la gamme de prix des armes dans le jeu, utile pour l'analyse économique du système de jeu.
+
+### Requête n°3
+Trouver le nombre total de commandes par joueur et trier du plus grand nombre au plus petit. La 1ère colonne aura pour nom "IdJoueur", la 2ème colonne aura pour nom "NombreCommandes".
+
 ```sql
-SELECT j.idJoueur AS 'IdJoueur' , COUNT(c.idCommande) AS NombreCommandes
+SELECT j.idJoueur AS 'IdJoueur', COUNT(c.idCommande) AS NombreCommandes
 FROM t_joueur AS j
-JOIN t_commande AS c
-ON j.idJoueur = c.fkJoueur
-GROUP BY idJoueur
+JOIN t_commande AS c ON j.idJoueur = c.fkJoueur
+GROUP BY j.idJoueur
 ORDER BY NombreCommandes DESC;
 ```
 
 **Explications :**
-On sélectionne tous les identifiants des joueurs et le nombre de commande qu'ils ont passé en comptant chaque commande avec la fonction `COUNT()`. Ces colonnes sont renommés grâce à `AS` et on joint les données de la table `t_joueur` et la table `t_commande`. Ce qui sans autre paramètre que la jointure, créer un tableau avec les données de la table `t_joueur` et suivi des données de la table `t_commande`. Les données de ces 2 tables sont liés grâce à l'attribut `idJoueur` de la table `t_joueur` et la clé étrangère de l'identifiant de `t_joueur` dans la table `t_commande`.
-Voici une image représentant ceci :
-![[sqlJoins_3.png]]
+Cette requête effectue une jointure interne entre les tables `t_joueur` (alias `j`) et `t_commande` (alias `c`) sur la base de l'identifiant du joueur. Elle compte le nombre de commandes pour chaque joueur avec `COUNT(c.idCommande)`. Les résultats sont groupés par `idJoueur` et triés par ordre décroissant du nombre de commandes. Cette requête permet d'identifier les joueurs les plus actifs en termes de commandes passées.
 
-*Source : [SQL Join types explained visually](https://www.atlassian.com/data/sql/sql-join-types-explained-visually)*
+### Requête n°4
+Trouver les joueurs qui ont passé plus de 2 commandes. La 1ère colonne aura pour nom IdJoueur, la 2ème colonne aura pour nom NombreCommandes.
 
-Ensuite en groupe par l'attribut `idJoueur` puis ordonner dans l'ordre décroissant par l'attribut `NombresCommandes`.
-### Requêtes n°4
-Trouver les joueurs qui ont passé plus de 2 commandes. La 1ère colonne aura pour nom `IdJoueur`, la 2ème colonne aura pour nom `NombreCommandes`
 ```sql
-SELECT j.idJoueur AS 'IdJoueur' , COUNT(c.idCommande) AS NombreCommandes
+SELECT j.idJoueur AS 'IdJoueur', COUNT(c.idCommande) AS NombreCommandes
 FROM t_joueur AS j
-JOIN t_commande AS c
-ON j.idJoueur = c.fkJoueur
-GROUP BY idJoueur
-HAVING NombreCommandes > 2
+JOIN t_commande AS c ON j.idJoueur = c.fkJoueur
+GROUP BY j.idJoueur
+HAVING NombreCommandes > 2;
 ```
 
 **Explications :**
+Cette requête est similaire à la précédente, mais elle ajoute une clause `HAVING` pour filtrer les résultats. Elle sélectionne uniquement les joueurs ayant passé plus de 2 commandes. La clause `HAVING` est utilisée ici car elle permet de filtrer sur le résultat d'une fonction d'agrégation (`COUNT` dans ce cas), contrairement à `WHERE` qui s'applique aux lignes individuelles avant l'agrégation.
 
-### Requêtes n°5
+### Requête n°5
 Trouver le pseudo du joueur et le nom de l'arme pour chaque commande.
+
 ```sql
 SELECT j.jouPseudo, arm.armNom
 FROM t_joueur AS j
-JOIN t_arsenal AS ars
-ON j.idJoueur = ars.fkJoueur
-JOIN t_arme AS arm
-ON arm.idArme = ars.fkArme
-JOIN t_detail_commande AS dc
-ON dc.fkArme = arm.idArme
-JOIN t_commande AS c
-ON c.idCommande = dc.fkCommande AND j.idJoueur = c.fkJoueur;
-
+JOIN t_arsenal AS ars ON j.idJoueur = ars.fkJoueur
+JOIN t_arme AS arm ON arm.idArme = ars.fkArme
+JOIN t_detail_commande AS dc ON dc.fkArme = arm.idArme
+JOIN t_commande AS c ON c.idCommande = dc.fkCommande AND j.idJoueur = c.fkJoueur;
 ```
 
 **Explications :**
-Sélectionner les colonnes `jouPseudo` et `armNom` des tables `t_joueur`qui est join avec `t_arsenal`, `t_arme`, `t_detail_commande` et `t_commande`
+Cette requête complexe utilise plusieurs jointures pour relier les informations des joueurs, des armes et des commandes. Elle joint les tables `t_joueur`, `t_arsenal`, `t_arme`, `t_detail_commande`, et `t_commande`. Le résultat affiche le pseudo du joueur et le nom de l'arme pour chaque commande passée. Cette requête est utile pour avoir une vue détaillée des achats d'armes par joueur.
 
-### Requêtes n°6
-Trouver le total dépensé par chaque joueur en ordonnant par le montant le plus élevé en premier, et limiter aux 10 premiers joueurs. La 1ère colonne doit avoir pour nom "`IdJoueur`" et la 2ème colonne "`TotalDepense`"
+### Requête n°6
+Trouver le total dépensé par chaque joueur en ordonnant par le montant le plus élevé en premier, et limiter aux 10 premiers joueurs. La 1ère colonne doit avoir pour nom "IdJoueur" et la 2ème colonne "TotalDepense".
+
 ```sql
 SELECT j.idJoueur AS 'IdJoueur', SUM(arm.armPrix * dc.detQuantiteCommande) AS 'TotalDepense' 
 FROM t_joueur AS j 
-JOIN t_commande AS c 
-ON j.idJoueur = c.fkJoueur 
-JOIN t_detail_commande AS dc 
-ON c.idCommande = dc.fkCommande 
+JOIN t_commande AS c ON j.idJoueur = c.fkJoueur 
+JOIN t_detail_commande AS dc ON c.idCommande = dc.fkCommande 
 JOIN t_arme AS arm ON dc.fkArme = arm.idArme 
 GROUP BY j.idJoueur 
 ORDER BY TotalDepense DESC 
 LIMIT 10;
-
 ```
 
 **Explications :**
-Cette commande SQL effectue une analyse complexe des dépenses des joueurs en armes dans un système de jeu. Elle commence par joindre plusieurs tables (`t_joueur`, `t_commande`, `t_detail_commande` et `t_arme`) en utilisant leurs clés étrangères respectives. Ensuite, elle calcule le total des dépenses pour chaque joueur en multipliant le prix de chaque arme (`arm.armPrix`) par la quantité commandée (`dc.detQuantiteCommande`) et en faisant la somme de ces produits. Les résultats sont groupés par joueur (`GROUP BY j.idJoueur`) et triés par ordre décroissant du total des dépenses (`ORDER BY TotalDepense DESC`). Puis, la commande limite les résultats aux 10 premiers joueurs (`LIMIT 10`), affichant ainsi les 10 joueurs ayant dépensé le plus en armes, avec leur identifiant (`IdJoueur`) et le montant total de leurs dépenses (`TotalDepense`).
-### Requêtes n°7
-Récupérez tous les joueurs et leurs commandes, même s'ils n'ont pas passé de commande. Dans cet exemple, même si un joueur n'a jamais passé de commande, il sera quand même listé, avec des valeurs `NULL` pour les champs de la table `t_commande`.
+Cette requête calcule le total dépensé par chaque joueur en armes. Elle utilise des jointures multiples pour relier les informations des joueurs, des commandes, des détails de commande et des armes. La fonction `SUM` multiplie le prix de chaque arme par la quantité commandée et additionne ces produits. Les résultats sont groupés par joueur, triés par dépense totale décroissante, et limités aux 10 premiers. Cette requête est précieuse pour identifier les joueurs les plus dépensiers.
+
+### Requête n°7
+Récupérer tous les joueurs et leurs commandes, même s'ils n'ont pas passé de commande.
+
 ```sql
 SELECT * 
 FROM t_joueur AS j
-LEFT JOIN t_commande AS c
-ON c.fkJoueur = j.idJoueur;
-
+LEFT JOIN t_commande AS c ON c.fkJoueur = j.idJoueur;
 ```
 
 **Explications :**
-Cette commande SQL effectue une jointure externe gauche (`LEFT JOIN`) entre les tables `t_joueur` (aliasée en 'j') et `t_commande` (aliasée en 'c'). Elle récupère toutes les colonnes (`*`) des deux tables pour chaque joueur, qu'il ait passé une commande ou non. La jointure se fait sur la base de la correspondance entre l'identifiant du joueur (`j.idJoueur`) et la clé étrangère du joueur dans la table des commandes (`c.fkJoueur`). Cette requête permet d'obtenir une vue complète de tous les joueurs, incluant leurs informations de commande s'ils en ont, et affichant des valeurs NULL pour les colonnes de commande pour les joueurs n'ayant pas encore passé de commande. 
-### Requêtes n°8
-Récupérer toutes les commandes et afficher le pseudo du joueur s’il existe, sinon afficher `NULL` pour le pseudo.
+Cette requête utilise une jointure externe gauche (`LEFT JOIN`) entre les tables `t_joueur` et `t_commande`. Elle retourne tous les joueurs, qu'ils aient passé des commandes ou non. Pour les joueurs sans commande, les colonnes de la table `t_commande` afficheront NULL. Cette requête est utile pour avoir une vue complète de tous les joueurs, y compris ceux qui n'ont pas encore effectué d'achat.
+
+### Requête n°8
+Récupérer toutes les commandes et afficher le pseudo du joueur s'il existe, sinon afficher NULL pour le pseudo.
+
 ```sql
 SELECT c.*, j.jouPseudo 
-FROM t_joueur AS j
-RIGHT JOIN t_commande AS c
-ON c.fkJoueur = j.idJoueur;
+FROM t_commande AS c
+LEFT JOIN t_joueur AS j ON c.fkJoueur = j.idJoueur;
 ```
 
 **Explications :**
-Cette commande SQL effectue une jointure externe droite (`RIGHT JOIN`) entre les tables `t_commande` (aliasée en 'c') et `t_joueur` (aliasée en 'j'). Elle sélectionne toutes les colonnes de la table `t_commande` (`c.\*`) ainsi que la colonne `jouPseudo` de la table `t_joueur`. La jointure se fait sur la correspondance entre la clé étrangère du joueur dans la table des commandes (`c.fkJoueur`) et l'identifiant du joueur (`j.idJoueur`). Cette requête permet d'obtenir toutes les commandes, qu'elles soient associées à un joueur existant ou non, en incluant le pseudonyme du joueur lorsqu'il est disponible. Si une commande n'est pas associée à un joueur existant, la colonne `jouPseudo` affichera NULL.
-### Requêtes n°9
+Cette requête utilise une jointure externe gauche (`LEFT JOIN`) entre les tables `t_commande` et `t_joueur`. Elle retourne toutes les commandes, qu'elles soient associées à un joueur existant ou non. Si une commande n'est pas liée à un joueur (ce qui pourrait indiquer une anomalie dans les données), le champ `jouPseudo` affichera NULL. Cette requête est utile pour vérifier l'intégrité des données et identifier d'éventuelles commandes orphelines.
+
+### Requête n°9
 Trouver le nombre total d'armes achetées par chaque joueur (même si ce joueur n'a acheté aucune Arme).
+
 ```sql
-SELECT j.idJoueur, COUNT(dc.fkArme) AS 'NombreTotalArme'
+SELECT j.idJoueur, COALESCE(SUM(dc.detQuantiteCommande), 0) AS 'NombreTotalArme'
 FROM t_joueur AS j
-LEFT JOIN t_commande AS c
-ON c.fkJoueur = j.idJoueur
-LEFT JOIN t_detail_commande AS dc
-ON dc.fkCommande = c.idCommande
+LEFT JOIN t_commande AS c ON c.fkJoueur = j.idJoueur
+LEFT JOIN t_detail_commande AS dc ON dc.fkCommande = c.idCommande
 GROUP BY j.idJoueur;
 ```
+
 **Explications :**
- Cette requête SQL effectue une analyse du nombre total d'armes commandées par chaque joueur. Elle commence par une jointure externe gauche (LEFT JOIN) entre la table `t_joueur` (j) et `t_commande` (c), puis une seconde jointure externe gauche avec `t_detail_commande` (dc). La fonction COUNT(`dc.fkArme`) est utilisée pour compter le nombre d'armes dans chaque commande. Le résultat est groupé par l'identifiant du joueur (`GROUP BY j.idJoueur`), ce qui permet d'obtenir le nombre total d'armes pour chaque joueur, même ceux n'ayant pas passé de commande (qui auront un total de 0). Cette requête fournit donc un tableau indiquant le nombre d'armes obtenu par chaque joueur, incluant les joueurs qui n'en jamais fait d'achats.
-### Requêtes n°10
-Trouver les joueurs qui ont acheté plus de 3 types d'armes différentes
+Cette requête utilise des jointures externes gauches pour inclure tous les joueurs, même ceux n'ayant pas effectué d'achat. La fonction `COALESCE` est utilisée pour remplacer les valeurs NULL par 0 pour les joueurs sans achat. `SUM(dc.detQuantiteCommande)` calcule le nombre total d'armes achetées. Cette requête fournit une vue complète de l'activité d'achat de tous les joueurs, y compris ceux qui n'ont pas encore fait d'acquisition.
+
+### Requête n°10
+Trouver les joueurs qui ont acheté plus de 3 types d'armes différentes.
+
 ```sql
-SELECT j.idJoueur, COUNT(DISTINCT dc.fkArme) AS 'NombreTotalArme'
+SELECT j.idJoueur, COUNT(DISTINCT dc.fkArme) AS 'NombreTypesArmes'
 FROM t_joueur AS j
-LEFT JOIN t_commande AS c
-ON c.fkJoueur = j.idJoueur
-LEFT JOIN t_detail_commande AS dc
-ON dc.fkCommande = c.idCommande
+JOIN t_commande AS c ON c.fkJoueur = j.idJoueur
+JOIN t_detail_commande AS dc ON dc.fkCommande = c.idCommande
 GROUP BY j.idJoueur
-HAVING NombreTotalArme > 3;
+HAVING NombreTypesArmes > 3;
 ```
 
 **Explications :**
-Cette requête SQL analyse la diversité des armes commandées par chaque joueur. Elle utilise des jointures externes gauches (LEFT JOIN) pour lier les tables `t_joueur` (j), `t_commande` (c), et `t_detail_commande` (dc). La fonction COUNT(`DISTINCT dc.fkArme`) compte le nombre d'armes uniques commandées par chaque joueur, évitant ainsi les doublons. Les résultats sont groupés par joueur (`GROUP BY j.idJoueur`). La clause `HAVING NombreTotalArme > 3` filtre les résultats pour ne montrer que les joueurs ayant commandé plus de 3 types d'armes différents. Cette requête est particulièrement utile pour identifier les joueurs avec une collection d'armes variée, ce qui pourrait indiquer un engagement plus important dans le jeu ou une stratégie d'achat diversifiée. Elle permet d'analyser les comportements d'achat sophistiqués et potentiellement de cibler les joueurs les plus actifs ou expérimentés.
+Cette requête utilise des jointures internes pour lier les tables de joueurs, commandes et détails de commandes. `COUNT(DISTINCT dc.fkArme)` compte le nombre de types d'armes uniques achetés par chaque joueur. La clause `HAVING` filtre les résultats pour ne montrer que les joueurs ayant acheté plus de 3 types d'armes différents. Cette requête est utile pour identifier les joueurs avec une collection d'armes diversifiée, ce qui peut indiquer un engagement plus important dans le jeu ou une stratégie d'achat variée.
 ## Création des index
 En étudiant le dump MySQL `db_space_invaders.sql` vous constaterez que vous ne trouvez pas le mot clé INDEX. 
 ### 1. Pourtant certains index existent déjà. Pourquoi ? 
