@@ -378,8 +378,20 @@ En plus des clés primaires et des clés étrangères, je propose d'ajouter des 
 - **`t_joueur`**
 	- **`jouPseudo`** : Généralement, on identifie un joueur par son pseudo et on le recherche grâce à celui-ci. C'est probablement l'une des recherches les plus fréquentes, d'où l'intérêt d'en améliorer la vitesse. Bien que de nouveaux joueurs puissent s'inscrire régulièrement, je suppose que les recherches de joueurs sont plus fréquentes que les créations de comptes. Cela améliore considérablement l'expérience utilisateur, surtout dans le cas d'une base de données contenant des millions de joueurs. Sans index, la recherche pourrait prendre un certain temps, tandis que la création d'un nouveau compte peut être légèrement plus lente sans impact significatif sur l'expérience de jeu immédiate.
 
+#### Script SQL permettant de créer les index cités ci-dessus
+```sql
+-- Création des indexs de la table t_arme
+CREATE INDEX i_armNom ON t_arme(armNom); -- index pour le champ armNom
 
+-- Création des indexs de la table t_commande
+CREATE INDEX i_comDate ON t_commande(comDate); -- index pour le champ comDate
+CREATE INDEX i_comNumeroCommande ON t_commande(comNumeroCommande); -- index pour le champ comNumeroCommande
+
+-- Création des indexs de la table t_joueur
+CREATE INDEX i_jouPseudo ON t_joueur(jouPseudo); -- index pour le champ jouPseudo
+```
 ## Backup / Restore
+### Backup de la base de données
 Nous souhaitons réaliser une sauvegarde (Backup) de la base de données `db_space_invaders`. Ensuite, nous souhaitons nous assurer que cette sauvegarde est correcte en la rechargeant dans MySQL (opération de restauration). Donner la commande permettant de faire :
 - Un backup de la base de données `db_space_invaders` 
 - Un restore de la base de données `db_space_invaders` En expliquant en détail chaque commande utilisée.
