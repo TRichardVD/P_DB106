@@ -281,11 +281,11 @@ Par défaut, MySQL, créer des index par défaut pour les clés primaires et cl�
 
 ### 2. Quels sont les avantages et les inconvénients des index ? 
 #### Avantages
-- Accélère considérablement les recherches dans les données d'une base de données (`SELECT`)
-- 
+- Amélioration des performances des requêtes
 
 #### Inconvénients
-- Peut ralentir lors de l'ajour de données (`INSERT INTO`, etc.)
+- Augmentation de la taille de la base de données
+- Baisse des performances d'insertion, de modifications et de suppression de données.
 
 
 *Sources : [What are advantages and disadvantages of indexes in MySQL? - Linkedin](https://www.linkedin.com/pulse/what-advantages-disadvantages-indexes-mysql-esam-eisa)*
