@@ -289,12 +289,18 @@ Par défaut, MySQL, créer des index par défaut pour les clés primaires et cl�
 
 
 *Sources : [What are advantages and disadvantages of indexes in MySQL? - Linkedin](https://www.linkedin.com/pulse/what-advantages-disadvantages-indexes-mysql-esam-eisa)*
-### ==3. Sur quel champ (de quelle table), cela pourrait être pertinent d’ajouter un index ? Justifier votre réponse.==
+### 3. Sur quel champ (de quelle table), cela pourrait être pertinent d’ajouter un index ? Justifier votre réponse.
 
-==En plus des clés primaires et des clés étrangères, je propose d'ajouter des index sur les colonnes suivantes :==
+En plus des clés primaires et des clés étrangères, je propose d'ajouter des index sur les colonnes suivantes :
 
-- ==**jouPseudo (dans t_joueur)** : Généralement, on identifie un joueur par son pseudo et on le recherche grâce à celui-ci. C'est probablement l'une des recherches les plus fréquentes, d'où l'intérêt d'en améliorer la vitesse. Bien que de nouveaux joueurs puissent s'inscrire régulièrement, je suppose que les recherches de joueurs sont plus fréquentes que les créations de comptes. Cela améliore considérablement l'expérience utilisateur, surtout dans le cas d'une base de données contenant des millions de joueurs. Sans index, la recherche pourrait prendre un certain temps, tandis que la création d'un nouveau compte peut être légèrement plus lente sans impact significatif sur l'expérience de jeu immédiate.==
-- ==**armNom (dans t_arme)** : Si l'on doit effectuer des recherches dans la base de données par le nom d'une arme, il serait utile d'y ajouter un index. En général, l'ajout de nouvelles armes est moins fréquent que les recherches, ce qui justifie l'utilisation d'un index pour optimiser les recherches.==
+- **`t_arme`**
+	- **`armNom`**: Si l'on doit effectuer des recherches dans la base de données par le nom d'une arme, il serait utile d'y ajouter un index. En général, l'ajout de nouvelles armes est moins fréquent que les recherches, ce qui justifie l'utilisation d'un index pour optimiser les recherches.
+- **`t_commande`**
+	- **`comDate`** : Si les requêtes impliquent souvent des filtres ou des tris par date de commande, un index sur `comDate` peut améliorer les performances.
+	- **`comNumeroCommande`** : Si ce champ est utilisé pour rechercher des commandes spécifiques, un index pourrait être bénéfique.
+- **`t_joueur`**
+	- **`jouPseudo`** : Généralement, on identifie un joueur par son pseudo et on le recherche grâce à celui-ci. C'est probablement l'une des recherches les plus fréquentes, d'où l'intérêt d'en améliorer la vitesse. Bien que de nouveaux joueurs puissent s'inscrire régulièrement, je suppose que les recherches de joueurs sont plus fréquentes que les créations de comptes. Cela améliore considérablement l'expérience utilisateur, surtout dans le cas d'une base de données contenant des millions de joueurs. Sans index, la recherche pourrait prendre un certain temps, tandis que la création d'un nouveau compte peut être légèrement plus lente sans impact significatif sur l'expérience de jeu immédiate.
+
 
 ## Backup / Restore
 Nous souhaitons réaliser une sauvegarde (Backup) de la base de données `db_space_invaders`. Ensuite, nous souhaitons nous assurer que cette sauvegarde est correcte en la rechargeant dans MySQL (opération de restauration). Donner la commande permettant de faire :
