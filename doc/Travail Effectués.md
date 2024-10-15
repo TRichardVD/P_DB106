@@ -404,3 +404,10 @@ Donc on applique la commande suivante dans notre environnement
 docker cp db:db_space_invaders.sql db_space_invaders.sql 
 ```
 
+### Restauration de la base de données
+Afin de restaurer la base de données, nous devrons utilisé la même commande utilisé pour importer le dump de base de la base de données en cette fois-ci donnant le chemin du dump de la base de données que nous venons de créé. Voici donc la commande à utilisé :
+```bash
+docker exec -i db mysql -uroot -proot < db_space_invaders.sql
+```
+
+Cette commande permet d'exécuter le fichier SQL précisé en tant que root dans l'environnement du container docker se nommant `db`. Attention : cette commande va récupéré le fichier SQL se trouvant  à l'emplacement du terminal utilisé pour exécuté cette commande.
