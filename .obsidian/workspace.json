@@ -69,7 +69,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "d3e4dd2f0c581ef3",
@@ -148,21 +149,22 @@
   },
   "active": "8633daaedcd6fd70",
   "lastOpenFiles": [
+    "script/index.sql",
+    "script/Nouveau Document texte.txt",
+    "consignes/P_OO-Specifications.pdf",
+    "zzz_Archives/prerequis.sql",
     "doc/Travail Effectués.md",
+    "script/db_space_invaders_Base.sql",
+    "zzz_Archives/start.bat",
+    "zzz_Archives",
     "doc/annexes/sqlJoins_3.png",
     "doc/I-ConventionsDeCodageV3.6.0.pdf",
     "doc.md",
-    "consignes/P_OO-Specifications.pdf",
     "README.md",
     "script/ExecutionScripts.bat",
     "script/Nouvelle image bitmap.bmp",
     "Archives/start.bat",
     "Archives",
-    "Nouveau dossier",
-    "consignes/db_space_invaders.sql",
-    "script/db_space_invaders.sql",
-    "script/db_space_invaders_base.sql",
-    "doc/annexes",
     "sqlJoins_3.png"
   ]
 }
