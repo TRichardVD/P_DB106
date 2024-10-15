@@ -1,7 +1,7 @@
 Cette page explique tout le travail qui a été effectué et comment. Vous trouverez le fichier contenant toutes les commandes SQL 
 ## Importation de la base de données
 
-Lancer cette commande depuis le dossier dans lequel se trouve le fichier `db_space_invaders.sql` . Cette commande permet d'importer un dump/ executer les commandes sql présente dans un fichier dans l'environnement mysql.
+Lancer cette commande depuis le dossier dans lequel se trouve le fichier `db_space_invaders.sql` . Cette commande permet d'importer un dump/ exécuter les commandes SQL présente dans un fichier dans l'environnement MySQL. Afin d'améliorer la lisibilité et la compréhension, j'ai renommé le dump fourni en annexe du cahier des charge `db_space_invaders_base.sql` afin d'éviter la confusion avec le dump qui sera créé à la fin de ce projet.
 
 ```shell
 docker exec -i db mysql -uroot -proot db_space_invaders < db_space_invaders.sql
