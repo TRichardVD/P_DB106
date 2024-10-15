@@ -396,7 +396,7 @@ Nous souhaitons réaliser une sauvegarde (Backup) de la base de données `db_spa
 - Un backup de la base de données `db_space_invaders` 
 - Un restore de la base de données `db_space_invaders` En expliquant en détail chaque commande utilisée.
 
-Pour créer un dump d'une base de données, on peut utilisé l'utilitaire présent dans MySQL se nommant `mysqldump`. La commande suivante sert donc à créer un dump d'une base de données précisé (il est aussi possible de faire un dump de toutes les base de données mais nous ne feront pas ca ici)
+Pour créer un dump d'une base de données, on peut utilisé l'utilitaire présent dans MySQL se nommant `mysqldump`. On donne les paramètres d'authentification permettant l'accès à la base de données concerné c'est à dire le nom d'utilisateur qui est root (-u) et le mot de passe qui est root (-p). Nous utilisons les paramètre `--single-transaction` afin de faire la sauvegarde dans une transaction ce qui évite que toute modifications rendent la sauvegarde obsolète. L'ajout de l'autre paramètre `--databases` permet d'ajouter au dump les clauses `CREATE DATABASE`et `USE` afin qu'il ne soit pas nécessaire de créer la base de données avant de restaurer le dump.  La commande suivante sert donc à créer un dump d'une base de données précisé (il est aussi possible de faire un dump de toutes les base de données mais nous ne feront pas ca ici)
 ```bash
 mysqldump -uroot -proot nom_db > nom_fichier.sql --single-transaction --databases
 ```
@@ -406,12 +406,12 @@ Donc si on applique ceci dans note base de données :
 mysqldump -uroot -proot db_space_invaders > db_space_invaders.sql --single-transaction --databases
 ```
 
-Un dump c'est créé dans l'emplacement approprié. On peut le copier dans l'emplacement de notre choix avec la commande suivante en dehors de notre container.
+Un dump c'est créé dans l'emplacement spécifié se trouvant dans le container docker. On doit le copier dans l'emplacement de notre choix avec la commande afin de le récupérer en dehors du container. Cette commande doit être exécuté en dehors du container docker.
 ```bash
 docker cp emplacement_du_fichier_source emplacement_du_fichier_destination
 ```
 
-Donc on applique la commande suivante dans notre environnement
+Donc on applique la commande suivante dans notre environnement afin de copier le dump
 ```bash
 docker cp db:db_space_invaders.sql db_space_invaders.sql 
 ```
