@@ -31,24 +31,101 @@ Explication détaillée de la commande :
 `db` : C'est le nom ou l'ID du conteneur dans lequel la commande sera exécutée.
 `bash` : C'est la commande à exécuter dans le conteneur, ici un shell Bash.
 
+## Gestion des utilisateurs et des rôles
+
 
 ### Comment faire ?
-https://zestedesavoir.com/tutoriels/730/administrez-vos-bases-de-donnees-avec-mysql/954_gestion-des-utilisateurs-et-configuration-du-serveur/3962_gestion-des-utilisateurs/
 
-https://www.emmanuelgautier.fr/blog/utilisateurs-et-privileges-sous-mysql
+#### Création d'un utilisateur
 
+Pour créer un utilisateur dans MySQL, utilisez la commande suivante :
+
+```sql
+CREATE USER 'username'@'hostname' IDENTIFIED BY 'password';
+```
+
+- `username` : Nom de l'utilisateur à créer.
+- `hostname` : Définit de quel hôte cet utilisateur est autorisé à se connecter (remplacez par `%` si l'utilisateur peut se connecter de n'importe où).
+- `'password'` : Mot de passe de l'utilisateur.
+
+#### Création d'un rôle
+
+Les rôles permettent de grouper des privilèges afin de les attribuer facilement à plusieurs utilisateurs. Voici comment créer un rôle :
+
+```sql
+CREATE ROLE 'rolename';
+```
+
+- `rolename` : Nom du rôle que vous souhaitez créer.
+
+#### Gestion des privilèges d'un rôle
+
+Pour attribuer des privilèges à un rôle, utilisez la commande `GRANT` :
+
+```sql
+GRANT privilege ON lieuDuPrivilege TO 'rolename';
+```
+
+- `privilege` : Liste des privilèges à attribuer, séparés par des virgules, sur le niveau ou l'objet pour lequel les privilèges seront attribués.
+
+---
+##### Liste des privilèges disponibles
+
+Voici un tableau des principaux privilèges qu'il est possible d'attribuer à un rôle ou un utilisateur (c'est uniquement ceux qui nous seront utile).
+
+| Privilège        | Description                                                                 |
+| ---------------- | --------------------------------------------------------------------------- |
+| `ALL PRIVILEGES` | Accorde tous les privilèges disponibles                                     |
+| `SELECT`         | Permet de lire les données des tables                                       |
+| `INSERT`         | Permet d'insérer de nouvelles lignes dans les tables                        |
+| `UPDATE`         | Permet de modifier les données existantes dans les tables                   |
+| `DELETE`         | Permet de supprimer des lignes des tables                                   |
+| `GRANT OPTION`   | Permet d'accorder des privilèges à d'autres utilisateurs                    |
+| `USAGE`          | Privilège nul qui permet de créer un compte sans lui accorder de privilèges |
+
+*[Tous les privilèges disponible dans MySQL](https://dev.mysql.com/doc/refman/8.4/en/privileges-provided.html)*
+
+---
+
+- `lieuDuPrivilège` : Le niveau sur lequel les privilèges sont attribués (par exemple : `*.*` pour tout, `database.table` pour une table spécifique).
+
+---
+##### Niveaux de privilège
+Tous les niveaux de privilèges disponibles dans MySQL (uniquement ceux qui nous seront utile).
+
+| Niveau de privilège     | Description                                               |
+| ----------------------- | --------------------------------------------------------- |
+| `*.*`                   | Tous les schémas et toutes les tables                     |
+| `database.*`            | Toutes les tables dans une base de données                |
+| `database.table`        | Une table spécifique dans une base de données             |
+| `database.table.column` | Une colonne spécifique d'une table, d'une base de données |
+
+---
+
+- `'rolename'` : Nom du rôle qui recevra ces privilèges.
+
+#### Ajout d'un rôle à un utilisateur
+
+Pour ajouter un rôle à un utilisateur, utilisez la commande suivante :
+
+```sql
+GRANT 'rolename' TO 'username'@'hostname';
+```
+
+- `'rolename'` : Nom du rôle à ajouter.
+- `'username'`@'hostname' : Nom de l'utilisateur qui recevra ce rôle.
+
+
+*Sources : [Zeste de Savoir : Gestion des utilisateurs](https://zestedesavoir.com/tutoriels/730/administrez-vos-bases-de-donnees-avec-mysql/954_gestion-des-utilisateurs-et-configuration-du-serveur/3962_gestion-des-utilisateurs/), [https://www.emmanuelgautier.fr : Utilisateurs et privilèges sous MySQL](https://www.emmanuelgautier.fr/blog/utilisateurs-et-privileges-sous-mysql) *
 
 
 ### Pratique
-
-
- 3 utilisateurs doivent être créés :
+**3 utilisateurs doivent être créés :**
  1. Administrateur du jeu
  2. Joueur
  3. Gestionnaire de la boutique
 
-
-### Création des utilisateurs et des rôle, ajout des utilisateur dans les rôles et attribution des privilèges pour chaque rôle.
+#### Création des utilisateurs et des rôle, ajout des utilisateur dans les rôles et attribution des privilèges pour chaque rôle.
 ```sql
 -- Role AdminJeu
 CREATE ROLE 'AdminJeu'; -- Création du rôle AdminJeu
@@ -91,7 +168,7 @@ FLUSH PRIVILEGES;
 ```
 
 
-### Vérifier si la création des utilisateurs et des rôles, et l'attribution des privilèges à fonctionné
+#### Vérifier si la création des utilisateurs et des rôles, et l'attribution des privilèges à fonctionné
 ```sql
 
 -- Pour vérifier si les autorisations ont bien été attribués
