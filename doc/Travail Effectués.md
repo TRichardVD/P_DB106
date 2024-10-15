@@ -4,7 +4,7 @@ Cette page explique tout le travail qui a été effectué et comment. Vous trouv
 Lancer cette commande depuis le dossier dans lequel se trouve le fichier `db_space_invaders.sql` . Cette commande permet d'importer un dump/ exécuter les commandes SQL présente dans un fichier dans l'environnement MySQL. Afin d'améliorer la lisibilité et la compréhension, j'ai renommé le dump fourni en annexe du cahier des charge `db_space_invaders_base.sql` afin d'éviter la confusion avec le dump qui sera créé à la fin de ce projet.
 
 ```shell
-docker exec -i db mysql -uroot -proot db_space_invaders < db_space_invaders.sql
+docker exec -i db mysql -uroot -proot db_space_invaders < db_space_invaders_base.sql
 ```
 
 `docker exec ` : Lance une commande dans un container
@@ -32,7 +32,6 @@ Explication détaillée de la commande :
 `bash` : C'est la commande à exécuter dans le conteneur, ici un shell Bash.
 
 ## Gestion des utilisateurs et des rôles
-
 
 ### Comment faire ?
 
@@ -83,11 +82,12 @@ Voici un tableau des principaux privilèges qu'il est possible d'attribuer à un
 | `GRANT OPTION`   | Permet d'accorder des privilèges à d'autres utilisateurs                    |
 | `USAGE`          | Privilège nul qui permet de créer un compte sans lui accorder de privilèges |
 
-*[Tous les privilèges disponible dans MySQL](https://dev.mysql.com/doc/refman/8.4/en/privileges-provided.html)*
+
+*[Tous les privilèges disponibles dans MySQL](https://dev.mysql.com/doc/refman/8.4/en/privileges-provided.html)*
 
 ---
 
-- `lieuDuPrivilège` : Le niveau sur lequel les privilèges sont attribués (par exemple : `*.*` pour tout, `database.table` pour une table spécifique).
+- `lieuDuPrivilège` : Le niveau sur lequel les privilèges sont attribués.
 
 ---
 ##### Niveaux de privilège
@@ -339,7 +339,7 @@ En étudiant le dump MySQL `db_space_invaders.sql` vous constaterez que vous ne 
 
 ```sql
 /* 
-SHOW INDEX FROM nom_table ; --permet d'afficher les index existant sur une table précise 
+SHOW INDEX FROM nom_table ; -- permet d'afficher les index existant sur une table précise 
 */
 
 SHOW INDEX FROM t_arme;

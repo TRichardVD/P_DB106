@@ -149,6 +149,7 @@
   },
   "active": "8633daaedcd6fd70",
   "lastOpenFiles": [
+    "consignes/I-ConventionsDeCodageV3.6.0.pdf",
     "script/index.sql",
     "script/Nouveau Document texte.txt",
     "consignes/P_OO-Specifications.pdf",
@@ -164,7 +165,6 @@
     "script/ExecutionScripts.bat",
     "script/Nouvelle image bitmap.bmp",
     "Archives/start.bat",
-    "Archives",
     "sqlJoins_3.png"
   ]
 }
