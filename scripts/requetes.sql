@@ -16,12 +16,12 @@ GROUP BY idJoueur
 ORDER BY NombreCommandes DESC;
 
 -- 4
-SELECT j.idJoueur AS 'IdJoueur' , COUNT(c.idCommande) AS NombreCommandes
+SELECT j.idJoueur AS 'IdJoueur', COUNT(c.idCommande) AS NombreCommandes
 FROM t_joueur AS j
-JOIN t_commande AS c
+JOIN t_commande AS c 
 ON j.idJoueur = c.fkJoueur
-GROUP BY idJoueur
-HAVING NombreCommandes > 2
+GROUP BY j.idJoueur
+HAVING NombreCommandes > 2;
 
 -- 5
 SELECT j.jouPseudo, arm.armNom

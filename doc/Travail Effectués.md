@@ -136,7 +136,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON db_space_invaders.* TO 'AdminJeu'; -- Do
 CREATE ROLE 'Joueur'; -- Création du rôle Joueur
 GRANT SELECT ON db_space_invaders.t_arme TO 'Joueur';
 GRANT SELECT, INSERT ON db_space_invaders.t_commande TO 'Joueur';
-GRANT SELECT, INSERT ON db_space_invaders.t_deatil_commande TO 'Joueur';
+GRANT SELECT, INSERT ON db_space_invaders.t_detail_commande TO 'Joueur';
 
 -- Role GestionnaireBoutique
 CREATE ROLE 'GestionnaireBoutique'; -- Création du rôle GestionnaireBoutique
