@@ -1,7 +1,7 @@
-Cette page explique tout le travail qui a été effectué et comment. Vous trouverez le fichier contenant toutes les commandes SQL 
+Cette page explique tout le travail qui a été effectué et comment. Vous trouverez les fichiers contenant toutes les commandes SQL dans le dossier "Scripts".
 ## Importation de la base de données
 
-Lancer cette commande depuis le dossier dans lequel se trouve le fichier `db_space_invaders.sql` . Cette commande permet d'importer un dump/ exécuter les commandes SQL présente dans un fichier dans l'environnement MySQL. Afin d'améliorer la lisibilité et la compréhension, j'ai renommé le dump fourni en annexe du cahier des charge `db_space_invaders_base.sql` afin d'éviter la confusion avec le dump qui sera créé à la fin de ce projet.
+Lancer cette commande depuis le dossier dans lequel se trouve le fichier `db_space_invaders.sql` . Cette commande permet d'importer un dump/exécuter les commandes SQL présente dans le fichier dans l'environnement MySQL. Afin d'améliorer la lisibilité et la compréhension, j'ai renommé le dump fourni en annexe du cahier des charge, `db_space_invaders_base.sql` afin d'éviter la confusion avec le dump qui sera créé à la fin de ce projet.
 
 ```shell
 docker exec -i db mysql -uroot -proot db_space_invaders < db_space_invaders_base.sql
@@ -70,7 +70,7 @@ GRANT privilege ON lieuDuPrivilege TO 'rolename';
 ---
 ##### Liste des privilèges disponibles
 
-Voici un tableau des principaux privilèges qu'il est possible d'attribuer à un rôle ou un utilisateur (c'est uniquement ceux qui nous seront utile).
+Voici un tableau des principaux privilèges qu'il est possible d'attribuer à un rôle ou un utilisateur (c'est uniquement ceux qui nous seront utiles).
 
 | Privilège        | Description                                                                 |
 | ---------------- | --------------------------------------------------------------------------- |
@@ -119,8 +119,8 @@ GRANT 'rolename' TO 'username'@'hostname';
 *Sources : [Zeste de Savoir : Gestion des utilisateurs](https://zestedesavoir.com/tutoriels/730/administrez-vos-bases-de-donnees-avec-mysql/954_gestion-des-utilisateurs-et-configuration-du-serveur/3962_gestion-des-utilisateurs/), [https://www.emmanuelgautier.fr : Utilisateurs et privilèges sous MySQL](https://www.emmanuelgautier.fr/blog/utilisateurs-et-privileges-sous-mysql) *
 
 
-### Pratique
-**3 utilisateurs doivent être créés :**
+### Réalisation
+**3 rôles doivent être créés avec chacun un utilisateur avec chacun le droit dans la base de données :**
  1. Administrateur du jeu
  2. Joueur
  3. Gestionnaire de la boutique
@@ -172,7 +172,7 @@ FLUSH PRIVILEGES;
 ```sql
 
 -- Pour vérifier si les autorisations ont bien été attribués
--- Cette commande permet de lister les groupe elle est complexe car pas existante nativement dans mysql
+-- Cette commande permet de lister les groupe elle est complexe car pas existante nativement dans mysql. (Elle a été trouvé sur internet et ne sera pas expliqué plus en détails.)
 SELECT user AS nom_role FROM mysql.user WHERE account_locked='Y' AND password_expired='Y' AND authentication_string='';
 
 -- Afficher les permissions des rôles créés

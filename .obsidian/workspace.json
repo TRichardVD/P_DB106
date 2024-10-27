@@ -4,15 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "95e9dcf25a521538",
+        "id": "6e5de6aec5d46a4e",
         "type": "tabs",
         "children": [
           {
-            "id": "3ac4d7495722f504",
+            "id": "4e51ec6e6fb3989f",
             "type": "leaf",
             "state": {
               "type": "empty",
-              "state": {}
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
             }
           }
         ]
@@ -35,7 +37,9 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
             }
           },
           {
@@ -50,7 +54,9 @@
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-search",
+              "title": "Search"
             }
           },
           {
@@ -58,7 +64,9 @@
             "type": "leaf",
             "state": {
               "type": "bookmarks",
-              "state": {}
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
             }
           }
         ]
@@ -89,7 +97,9 @@
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
             }
           },
           {
@@ -100,7 +110,9 @@
               "state": {
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
             }
           },
           {
@@ -111,7 +123,9 @@
               "state": {
                 "sortOrder": "frequency",
                 "useHierarchy": true
-              }
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
             }
           },
           {
@@ -119,7 +133,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {},
+              "icon": "lucide-list",
+              "title": "Outline"
             }
           }
         ]
@@ -139,19 +155,20 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "3ac4d7495722f504",
+  "active": "4e51ec6e6fb3989f",
   "lastOpenFiles": [
-    "doc/Travail Effectués.md",
-    "script/prerequis.sql",
-    "consignes/~$ille_eval_P_DB106.pdf",
-    "consignes/grille_eval_P_DB106.pdf",
-    "consignes/grille_eval_p_shootMeUp_P_DB.pdf",
-    "consignes/grille_eval_p_shootMeUp_P_DB.pdf.crdownload",
-    "consignes/I-ConventionsDeCodageV3.6.0.pdf",
-    "script/index.sql",
-    "script/Nouveau Document texte.txt",
-    "consignes/P_OO-Specifications.pdf",
-    "zzz_Archives/prerequis.sql",
+    "Doc/Travail effectué.md",
+    "doc/Travail effectué.md",
+    "Doc/annexes",
+    "Doc",
+    "Scripts/_ExecutionScripts.bat",
+    "Scripts/users.sql",
+    "Scripts/requetes.sql",
+    "Scripts/prerequis.sql",
+    "Scripts/index.sql",
+    "Scripts/db_space_invaders_Base.sql",
+    "Scripts/db_space_invaders.sql",
+    "Scripts",
     "doc/annexes/sqlJoins_3.png",
     "doc.md",
     "README.md",
