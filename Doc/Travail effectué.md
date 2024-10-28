@@ -129,7 +129,7 @@ GRANT 'rolename' TO 'username'@'hostname';
 ```sql
 -- Role AdminJeu
 CREATE ROLE 'AdminJeu'; -- Création du rôle AdminJeu
-GRANT SELECT, INSERT, UPDATE, DELETE ON db_space_invaders.* TO 'AdminJeu'; -- Donner les privilèges nécessaires au rôle AdminJeu
+GRANT ALL PRIVILEGES ON db_space_invaders.* TO 'AdminJeu' WITH GRANT OPTION; -- Donner les privilèges nécessaires au rôle AdminJeu
 
 
 -- Role Joueur
