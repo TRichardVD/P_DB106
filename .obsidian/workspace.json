@@ -4,33 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "6e5de6aec5d46a4e",
+        "id": "f0e9976fc6ced501",
         "type": "tabs",
         "children": [
           {
-            "id": "4e51ec6e6fb3989f",
+            "id": "0092087b8734d2eb",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Doc/Travail effectué.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Travail effectué"
-            }
-          },
-          {
-            "id": "998845a7a58d522e",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.7.4"
-              },
-              "icon": "lucide-file",
-              "title": "Release Notes 1.7.4"
+              "title": "New tab"
             }
           }
         ]
@@ -106,7 +90,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Doc/Travail effectué.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -116,7 +99,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Travail effectué"
+              "title": "Backlinks"
             }
           },
           {
@@ -125,12 +108,11 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Doc/Travail effectué.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Travail effectué"
+              "title": "Outgoing links"
             }
           },
           {
@@ -151,11 +133,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "Doc/Travail effectué.md"
-              },
+              "state": {},
               "icon": "lucide-list",
-              "title": "Outline of Travail effectué"
+              "title": "Outline"
             }
           }
         ]
@@ -175,24 +155,26 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "4e51ec6e6fb3989f",
+  "active": "0092087b8734d2eb",
   "lastOpenFiles": [
-    "scripts/Backup/db_space_invaders.sql",
-    "scripts/Backup",
-    "scripts/Nouveau dossier",
+    "README.md",
+    "script/_Y-P_DB106-TRD-ExecutionScripts.bat.md",
+    "script",
+    "Doc/D-P_DB106-TRD-TravailEffectue.md",
     "Doc/Travail effectué.md",
+    "Doc/D-P_DB106-TRD-Travail effectué.md",
+    "Doc/T-P_DB106-TRD-JdT.pdf",
+    "Doc/Journal de travail P_DB 106.pdf",
+    "scripts/Y-P_DB106-TRD-users.sql",
+    "scripts/_Y-P_DB106-TRD-ExecutionScripts.bat",
+    "scripts/Y-P_DB106-TRD-index.sql",
+    "scripts/Y-P_DB106-TRD-prerequis.sql",
+    "scripts/prerequis.sql",
+    "scripts/Y-P_DB106-TRD-requetes.sql",
+    "scripts/requetes.sql",
     "doc/Travail effectué.md",
-    "Doc/annexes",
-    "Doc",
-    "Scripts/_ExecutionScripts.bat",
-    "Scripts/users.sql",
-    "Scripts/requetes.sql",
-    "Scripts/prerequis.sql",
-    "Scripts/index.sql",
-    "Scripts/db_space_invaders_Base.sql",
     "doc/annexes/sqlJoins_3.png",
     "doc.md",
-    "README.md",
     "script/Nouvelle image bitmap.bmp",
     "sqlJoins_3.png"
   ]
