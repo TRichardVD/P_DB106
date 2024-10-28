@@ -20,7 +20,7 @@ docker exec -i db mysql -uroot -proot db_space_invaders < index.sql
 PAUSE
 
 :: Création d'un backup
-docker exec -i db mysqldump -uroot -proot db_space_invaders > db_space_invaders.sql --single-transaction --databases
+docker exec -i db mysqldump -uroot -proot db_space_invaders > ./Backup/db_space_invaders.sql --single-transaction --databases
 
 PAUSE
 
@@ -28,7 +28,7 @@ PAUSE
 docker exec -i db mysql -uroot -proot < prerequis.sql
 
 :: Restaurer le dump de la base de données
-docker exec -i db mysql -uroot -proot < db_space_invaders.sql
+docker exec -i db mysql -uroot -proot < ./Backup/db_space_invaders.sql
 
 :: Si on veut recréer les utilisateurs il faut reexecuter le script qui est dans le fichier users.sql
 
